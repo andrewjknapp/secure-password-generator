@@ -44,7 +44,18 @@ function getCharacterSelection() {
 //Generates secure password when called
 function generatePassword() {
 
-  let passLength = parseInt(prompt("Please enter the length of desired password as an integer from 8 to 128"));
+  let passLength;
+  let lengthCheck;
+
+  do {
+    passLength = parseInt(prompt("Please enter the length of desired password as an integer from 8 to 128"));
+    lengthCheck = passLength > 7 && passLength < 129;
+
+    if (!lengthCheck) {
+      alert("Invalid length");
+    }
+
+  } while(!lengthCheck);
   
   let charSelect = getCharacterSelection();
   let password = "";
