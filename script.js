@@ -16,17 +16,19 @@ let specialRegex = /[!"#$%&()*+,-./:;<=>?@[\\\]\^_`{\|}~]/;
 
 
 //Prompts user to determine which characters the user wants
-//Returns an array with an array of characters wanted and
-// an array of all characters to choose from.
+//Returns an array with an array of characters desired
 function getCharacterSelection() {
 
   
   let allCharacterArray = [];
+
+  //Promp user for desired characters
   let digitCheck = confirm("Include Numerical Digits in Secure Password?");
   let lowerCheck = confirm("Include Lowercase Letters in Secure Password?");
   let upperCheck = confirm("Include Uppercase Letters in Secure Password?");
   let specialCheck = confirm("Include Special Characters in Secure Password?");
 
+  //Compiles array of desired characters
   if (digitCheck) {
     allCharacterArray.push(...digits);
   }
@@ -52,6 +54,7 @@ function generatePassword() {
   let passLength;
   let lengthCheck;
 
+  //Prompts for desired length and validates input to be an integer between 8 & 128
   do {
     passLength = parseInt(prompt("Please enter the length of desired password as an integer from 8 to 128"));
     lengthCheck = passLength > 7 && passLength < 129;
@@ -63,22 +66,53 @@ function generatePassword() {
   } while(!lengthCheck);
   
 
-
+  //Creates desired character array
   let charSelect = getCharacterSelection();
   let password = "";
 
+  //Will be used to validate that generated password contains at least one of each specified characters
+  let digitBool;
+  let lowerBool;
+  let upperBool;
+  let specialBool;
+
   do {
 
+    digitBool = true;
+    lowerBool = true;
+    upperBool = true;
+    specialBool = true;
+
+    //Gets random characters from desired character array. Gives the number of characters
+    //equal to the requested length
     for (let i=0; i<passLength; i++) {
       password += getRandom(charSelect);
     }
     
+    //Uses Regular Expressions to determine that the password contains at least one 
+    //of each desired character. This checks to see if a certain character is in the 
+    //desired character array and if so will check that the password contains at least 
+    //one character of that character type (digit, lower, upper, special)
+    if (charSelect.indexOf('0') != -1) {
+      digitBool = digitRegex.test(password);
+    }
+    if (charSelect.indexOf('a') != -1) {
+      lowerBool = lowerRegex.test(password);
+    }
+    if (charSelect.indexOf('A') != -1) {
+      upperBool = upperRegex.test(password);
+    }
+    if (charSelect.indexOf('!') != -1) {
+      specialBool = specialRegex.test(password);
+    }
     
+    //If the generated password does not contain at least one of each desired character 
+    //type the loop will repeat until it meets these criteria.
   } while(
-    !(digitRegex.test(password) &&
-    lowerRegex.test(password) &&
-    upperRegex.test(password) &&
-    specialRegex.test(password))
+    !(digitBool &&
+    lowerBool &&
+    upperBool &&
+    specialBool)
   )
   return password;
 }
