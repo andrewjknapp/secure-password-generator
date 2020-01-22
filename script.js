@@ -74,6 +74,11 @@ function generatePassword() {
     passLength = parseInt(prompt("Please enter the length of desired password as an integer from 8 to 128"));
     lengthCheck = passLength > 7 && passLength < 129;
 
+    //Closes dialogue if User presses cancel on passLength prompt
+    if (!passLength) {
+      return "";
+    }
+
     if (!lengthCheck) {
       alert("Invalid length");
     }
