@@ -1,6 +1,6 @@
 # secure-password-generator
 
-## Use
+## Purpose
 This secure password generator creates a password between 8 and 128 characters long and includes Digits, Lowercase Letters, Uppercase Letters, and Special Characters based on user input.
 
 ## Description of Functions
