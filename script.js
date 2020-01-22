@@ -22,28 +22,43 @@ function getCharacterSelection() {
   
   let allCharacterArray = [];
 
-  //Promp user for desired characters
-  let digitCheck = confirm("Include Numerical Digits in Secure Password?");
-  let lowerCheck = confirm("Include Lowercase Letters in Secure Password?");
-  let upperCheck = confirm("Include Uppercase Letters in Secure Password?");
-  let specialCheck = confirm("Include Special Characters in Secure Password?");
+  let digitCheck;
+  let lowerCheck;
+  let upperCheck;
+  let specialCheck;
 
-  //Compiles array of desired characters
-  if (digitCheck) {
-    allCharacterArray.push(...digits);
-  }
+  do {
 
-  if (lowerCheck) {
-    allCharacterArray.push(...lowercase);
-  }
+    //Promp user for desired characters
+    digitCheck = confirm("Include Numerical Digits in Secure Password?");
+    lowerCheck = confirm("Include Lowercase Letters in Secure Password?");
+    upperCheck = confirm("Include Uppercase Letters in Secure Password?");
+    specialCheck = confirm("Include Special Characters in Secure Password?");
 
-  if (upperCheck) {
-    allCharacterArray.push(...uppercase);
-  }
+    //Compiles array of desired characters
+    if (digitCheck) {
+      allCharacterArray.push(...digits);
+    }
 
-  if (specialCheck) {
-    allCharacterArray.push(...special);
-  }
+    if (lowerCheck) {
+      allCharacterArray.push(...lowercase);
+    }
+
+    if (upperCheck) {
+      allCharacterArray.push(...uppercase);
+    }
+
+    if (specialCheck) {
+      allCharacterArray.push(...special);
+    }
+
+    //Alert displayed if no character types are chosen. If this is the 
+    //case then loop will be repeated
+    if (allCharacterArray.length < 1) {
+      alert("At least one character type must be chosen");
+    }
+
+  } while(allCharacterArray.length < 1) 
   
   return allCharacterArray;
 }
@@ -93,16 +108,16 @@ function generatePassword() {
     //of each desired character. This checks to see if a certain character is in the 
     //desired character array and if so will check that the password contains at least 
     //one character of that character type (digit, lower, upper, special)
-    if (charSelect.indexOf('0') != -1) {
+    if (charSelect.indexOf('0') !== -1) {
       digitBool = digitRegex.test(password);
     }
-    if (charSelect.indexOf('a') != -1) {
+    if (charSelect.indexOf('a') !== -1) {
       lowerBool = lowerRegex.test(password);
     }
-    if (charSelect.indexOf('A') != -1) {
+    if (charSelect.indexOf('A') !== -1) {
       upperBool = upperRegex.test(password);
     }
-    if (charSelect.indexOf('!') != -1) {
+    if (charSelect.indexOf('!') !== -1) {
       specialBool = specialRegex.test(password);
     }
     
