@@ -88,7 +88,7 @@ function generatePassword() {
 
   //Creates desired character array
   let charSelect = getCharacterSelection();
-  let password = "";
+  let userPassword = "";
 
   //Will be used to validate that generated password contains at least one of each specified characters
   let digitBool;
@@ -106,7 +106,7 @@ function generatePassword() {
     //Gets random characters from desired character array. Gives the number of characters
     //equal to the requested length
     for (let i=0; i<passLength; i++) {
-      password += getRandom(charSelect);
+      userPassword += getRandom(charSelect);
     }
     
     //Uses Regular Expressions to determine that the password contains at least one 
@@ -114,16 +114,16 @@ function generatePassword() {
     //desired character array and if so will check that the password contains at least 
     //one character of that character type (digit, lower, upper, special)
     if (charSelect.indexOf('0') !== -1) {
-      digitBool = digitRegex.test(password);
+      digitBool = digitRegex.test(userPassword);
     }
     if (charSelect.indexOf('a') !== -1) {
-      lowerBool = lowerRegex.test(password);
+      lowerBool = lowerRegex.test(userPassword);
     }
     if (charSelect.indexOf('A') !== -1) {
-      upperBool = upperRegex.test(password);
+      upperBool = upperRegex.test(userPassword);
     }
     if (charSelect.indexOf('!') !== -1) {
-      specialBool = specialRegex.test(password);
+      specialBool = specialRegex.test(userPassword);
     }
     
     //If the generated password does not contain at least one of each desired character 
@@ -134,7 +134,7 @@ function generatePassword() {
     upperBool &&
     specialBool)
   )
-  return password;
+  return userPassword;
 }
 
 //Returns value of random index of an array
